@@ -1,0 +1,1 @@
+export const baseurl = "https://backend-module-2-5s2x.onrender.com/"
