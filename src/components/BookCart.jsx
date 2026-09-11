@@ -3,7 +3,7 @@ const BookCart = ({ book }) => {
         <div className="card bg-base-100 w-full max-w-sm shadow-md border border-base-200 hover:shadow-xl transition-shadow duration-300">
 
             {/* Book Cover Placeholder */}
-            <figure className="h-64 from-primary/20 via-base-200 to-secondary/20 flex items-center justify-center p-6">
+            <figure className="h-64 bg-gradiant-to-br from-primary/20 via-base-200 to-secondary/20 flex items-center justify-center p-6">
                 {book.cover_image ? (
                     <img
                         src={book.cover_image}
