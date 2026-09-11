@@ -1,14 +1,35 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { baseurl } from "../services/BaseUrl";
 
 
 const Login = () => {
-    
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = () =>{
-        
+    const handleLogin = async () => {
+        try {
+            const formdata = new URLSearchParams();
+            formdata.append('username', username);
+            formdata.append('password', password)
+
+            const res = await fetch(`${baseurl}/login`,
+                {
+                    method: 'POST',
+                    headers: { "Containt-type": 'application/x-www-form-urlencoded' },
+                    body: formdata
+
+                })
+            const data = await res.json()
+            console.log(data)
+            const accessToken = data?.access_token
+            localStorage.setItem("lm_token", accessToken)
+
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -17,7 +38,7 @@ const Login = () => {
                 <div className="text-center">
                     <h1 className="text-5xl font-bold">Login now!</h1>
                     <p className="py-6 w-96">
-                       Please Enter Your Credential
+                        Please Enter Your Credential
                     </p>
                 </div>
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
