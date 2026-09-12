@@ -1,12 +1,15 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { baseurl } from "../services/BaseUrl";
+import { AuthContext } from "../context/AuthProvider";
 
 
 const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const {authUser, setAuthUser} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
@@ -17,7 +20,7 @@ const Login = () => {
             const res = await fetch(`${baseurl}/login`,
                 {
                     method: 'POST',
-                    headers: { "Containt-type": 'application/x-www-form-urlencoded' },
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: formdata
 
                 })
@@ -26,11 +29,28 @@ const Login = () => {
             const accessToken = data?.access_token
             localStorage.setItem("lm_token", accessToken)
 
+            const userRes = await fetch(`${baseurl}/user`, {
+                headers:{
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+
+            const userData = await userRes.json()
+            
+            setAuthUser(userData)
+
+            if(userData.detail == 'User not found'){
+                return
+            }
+            else{
+                navigate("/")
+            }
 
         } catch (error) {
             console.log(error)
         }
     }
+    console.log(authUser)
 
     return (
         <div className="hero bg-base-200 min-h-screen">
