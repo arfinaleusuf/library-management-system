@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const BookCart = ({ book }) => {
     return (
         <div className="card bg-base-100 w-full max-w-sm shadow-md border border-base-200 hover:shadow-xl transition-shadow duration-300">
@@ -40,10 +42,6 @@ const BookCart = ({ book }) => {
                     </span>
                 </div>
 
-                <p className="text-sm text-base-content/70 line-clamp-2">
-                    {book.description}
-                </p>
-
                 <p className="text-sm">
                     <span className="font-semibold">Author:</span>{" "}
                     {book.author}
@@ -54,15 +52,14 @@ const BookCart = ({ book }) => {
                         <p className="text-xl font-bold text-primary">
                             ৳{book.price}
                         </p>
-                        <p className="text-xs text-base-content/60">
-                            {book.available_copies} copies available
-                        </p>
                     </div>
 
                     <div className="card-actions">
-                        <button className="btn btn-primary btn-sm">
-                            View Details
-                        </button>
+                        <Link to={`/books/${book.id}`}>
+                            <button className="btn btn-primary btn-sm">
+                                View Details
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
