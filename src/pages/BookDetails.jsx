@@ -8,7 +8,18 @@ const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState(null)
     const { accessToken } = useContext(AuthContext)
 
-    console.log(bookDetails)
+    const handleReserve = async ()=> {
+        const res = await fetch(`${baseurl}/reserve/${id}`,{
+            method: "POST",
+            headers: {
+                Authorization : `Bearer ${accessToken}`
+            }
+        })
+
+        const data = await res.json();
+        console.log(data)
+    }
+
     useEffect(() => {
         if (!id) return;
         fetch(`${baseurl}/books/${id}`, {
@@ -123,8 +134,8 @@ const BookDetails = () => {
                         {/* Reserve Button */}
                         <div className="card-actions">
                             <button
+                                onClick={handleReserve}
                                 className="btn btn-primary btn-lg w-full"
-                                disabled={bookDetails?.available_copies === 0}
                             >
                                 Reserve
                             </button>

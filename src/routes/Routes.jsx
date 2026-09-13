@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import BrowesBooks from "../pages/BrowesBooks";
 import BookDetails from "../pages/BookDetails";
+import MyReserve from "../pages/MyReserve";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         {
           path:"/books/:id",
           element:<BookDetails/>
+        },
+        {
+          path:'/reserve/my',
+          element: <MyReserve/>
         }
     ]
   },
