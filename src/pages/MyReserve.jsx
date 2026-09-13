@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { baseurl } from "../services/BaseUrl";
 import { AuthContext } from "../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const MyReserve = () => {
     const [myReserve, setMyReserve] = useState([]);
@@ -15,7 +16,7 @@ const MyReserve = () => {
         })
 
         const data = await res.json();
-        alert(data.message);
+        toast.success(data.message);
         fetchReservation();
     };
 
@@ -145,7 +146,7 @@ const MyReserve = () => {
                                     {/* Footer */}
                                     <div className="card-actions justify-end mt-4">
                                         <button onClick={() => cancleReserve(reserve.id)} className="btn btn-outline btn-sm">
-                                            Cancle
+                                            Cancel
                                         </button>
                                     </div>
 

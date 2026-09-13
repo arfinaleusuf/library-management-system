@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { baseurl } from "../services/BaseUrl";
 import { AuthContext } from "../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const BookDetails = () => {
     const { id } = useParams();
@@ -17,7 +18,9 @@ const BookDetails = () => {
         })
 
         const data = await res.json();
-        console.log(data)
+        if(data){
+            toast.success(data.message)
+        }
     }
 
     useEffect(() => {

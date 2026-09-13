@@ -6,6 +6,7 @@ import SignUp from "../pages/SignUp";
 import BrowesBooks from "../pages/BrowesBooks";
 import BookDetails from "../pages/BookDetails";
 import MyReserve from "../pages/MyReserve";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
         },
         {
           path:'/reserve/my',
-          element: <MyReserve/>
+          element:<PrivateRoutes> <MyReserve/> </PrivateRoutes>
         }
     ]
   },

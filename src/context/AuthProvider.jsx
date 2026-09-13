@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [authUser, setAuthUser] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     const accessToken = localStorage.getItem('lm_token')
 
@@ -18,11 +19,13 @@ const AuthProvider = ({ children }) => {
         const userData = await userRes.json();
 
         setAuthUser(userData);
+        setLoading(false);
     };
 
     useEffect(() => {
         if (!accessToken) {
             setAuthUser(null);
+            setLoading(false)
             return;
         }
         fetchUser();
@@ -35,7 +38,7 @@ const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ authUser, setAuthUser, logout, accessToken}}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ authUser, setAuthUser, logout, accessToken, loading}}>{children}</AuthContext.Provider>
     );
 };
 

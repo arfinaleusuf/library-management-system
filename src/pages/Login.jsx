@@ -8,7 +8,7 @@ const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const {authUser, setAuthUser} = useContext(AuthContext);
+    const { authUser, setAuthUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
@@ -30,20 +30,21 @@ const Login = () => {
             localStorage.setItem("lm_token", accessToken)
 
             const userRes = await fetch(`${baseurl}/user`, {
-                headers:{
+                headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
             })
 
             const userData = await userRes.json()
-            
-            setAuthUser(userData)
 
-            if(userData.detail == 'User not found'){
-                return
-            }
-            else{
+
+
+            if (userData.id) {
+                setAuthUser(userData)
                 navigate("/")
+            }
+            else {
+                return
             }
 
         } catch (error) {
