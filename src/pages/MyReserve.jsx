@@ -6,7 +6,20 @@ const MyReserve = () => {
     const [myReserve, setMyReserve] = useState([]);
     const { accessToken } = useContext(AuthContext);
 
-    useEffect(() => {
+    const cancleReserve = async (id) => {
+        const res = await fetch(`${baseurl}/reserve/cancel/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+
+        const data = await res.json();
+        alert(data.message);
+        fetchReservation();
+    };
+
+    const fetchReservation = () => {
         fetch(`${baseurl}/reserve/my`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -15,6 +28,11 @@ const MyReserve = () => {
             .then(res => res.json())
             .then(data => setMyReserve(data))
             .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        if(!accessToken) return;
+        fetchReservation()
     }, [accessToken]);
 
     return (
@@ -57,15 +75,14 @@ const MyReserve = () => {
                                         </h2>
 
                                         <div
-                                            className={`badge ${
-                                                reserve.status === "pending"
-                                                    ? "badge-warning"
-                                                    : reserve.status === "approved"
+                                            className={`badge ${reserve.status === "pending"
+                                                ? "badge-warning"
+                                                : reserve.status === "approved"
                                                     ? "badge-success"
                                                     : reserve.status === "rejected"
-                                                    ? "badge-error"
-                                                    : "badge-ghost"
-                                            } capitalize`}
+                                                        ? "badge-error"
+                                                        : "badge-ghost"
+                                                } capitalize`}
                                         >
                                             {reserve.status}
                                         </div>
@@ -127,8 +144,8 @@ const MyReserve = () => {
 
                                     {/* Footer */}
                                     <div className="card-actions justify-end mt-4">
-                                        <button className="btn btn-outline btn-sm">
-                                            View Details
+                                        <button onClick={() => cancleReserve(reserve.id)} className="btn btn-outline btn-sm">
+                                            Cancle
                                         </button>
                                     </div>
 
@@ -137,7 +154,6 @@ const MyReserve = () => {
                         ))}
                     </div>
                 )}
-
             </div>
         </div>
     );
