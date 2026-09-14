@@ -46,7 +46,7 @@ const Login = () => {
                 navigate("/")
             }
             else {
-                toast.error(userData.detail)
+                toast.error("username or password is incorrect")
                 return
             }
 
