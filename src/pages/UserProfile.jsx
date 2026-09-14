@@ -1,10 +1,51 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthProvider";
+import { baseurl } from "../services/BaseUrl";
+import toast from "react-hot-toast";
 
 const UserProfile = () => {
-    const { authUser } = useContext(AuthContext);
 
-    console.log(authUser);
+    const { authUser, accessToken} = useContext(AuthContext);
+
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [userName, setUserName] = useState("");
+    const [email, setEmail] = useState("");
+
+    useEffect(() => {
+
+        if (authUser) {
+            setFirstName(authUser.firstname || "");
+            setLastName(authUser.lastname || "");
+            setUserName(authUser.username || "");
+            setEmail(authUser.email || "");
+        }
+    }, [authUser]);
+
+    const handleUpdateUser = async (e) => {
+        e.preventDefault()
+
+        const formdata = {
+            firstname: firstName,
+            lastname: lastName,
+            username: userName,
+            email
+        }
+        const res = await fetch(`${baseurl}/edituser`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formdata)
+        })
+
+        const data = await res.json()
+
+        toast(data.message)
+    }
+
 
     return (
         <div className="min-h-screen bg-base-200 flex items-center justify-center p-6">
@@ -42,6 +83,8 @@ const UserProfile = () => {
                             </label>
 
                             <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 type="email"
                                 defaultValue={authUser?.email || ""}
                                 className="input input-bordered w-full"
@@ -58,6 +101,8 @@ const UserProfile = () => {
                             </label>
 
                             <input
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
                                 type="text"
                                 defaultValue={authUser?.username || ""}
                                 className="input input-bordered w-full"
@@ -76,6 +121,8 @@ const UserProfile = () => {
                                 </label>
 
                                 <input
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
                                     type="text"
                                     defaultValue={authUser?.firstname || ""}
                                     className="input input-bordered w-full"
@@ -91,6 +138,8 @@ const UserProfile = () => {
                                 </label>
 
                                 <input
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
                                     type="text"
                                     defaultValue={authUser?.lastname || ""}
                                     className="input input-bordered w-full"
@@ -155,7 +204,7 @@ const UserProfile = () => {
                         {/* Update Button */}
                         <div className="flex justify-end mt-6">
                             <button
-                                type="submit"
+                                onClick={handleUpdateUser}
                                 className="btn btn-primary px-8"
                             >
                                 Update Profile
