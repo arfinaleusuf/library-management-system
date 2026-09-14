@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { baseurl } from "../services/BaseUrl";
 import { AuthContext } from "../context/AuthProvider";
+import toast from "react-hot-toast";
 
 
 const Login = () => {
@@ -26,6 +27,7 @@ const Login = () => {
                 })
             const data = await res.json()
             console.log(data)
+            
             const accessToken = data?.access_token
             localStorage.setItem("lm_token", accessToken)
 
@@ -44,6 +46,7 @@ const Login = () => {
                 navigate("/")
             }
             else {
+                toast.error(userData.detail)
                 return
             }
 

@@ -41,7 +41,7 @@ const Navbar = () => {
                             <div tabIndex={0} role="button" className="btn m-1">{authUser?.username}</div>
                             <ul tabIndex={-1} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                                 <li><Link to={'/user/profile'}>Profile</Link></li>
-                                <li><button>Change Password</button></li>
+                                <li><Link to={'change-password'}>Change Password</Link></li>
                                 <li><button onClick={logout}>Log Out</button></li>
                             </ul>
                         </div> : <Link to={"/login"} className="btn">Login</Link>
