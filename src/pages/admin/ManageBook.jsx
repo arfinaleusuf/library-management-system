@@ -1,8 +1,14 @@
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { baseurl } from "../../services/BaseUrl";
+import { AuthContext } from "../../context/AuthProvider";
+import toast from "react-hot-toast";
+
 
 const ManageBook = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [books, setBooks] = useState([])
+    const { accessToken } = useContext(AuthContext)
 
     const [formData, setFormData] = useState({
         title: "",
@@ -12,6 +18,14 @@ const ManageBook = () => {
         price: 0,
         total_copies: 1
     });
+
+    useEffect(() => {
+        fetch(`${baseurl}/books/all`)
+            .then(res => res.json())
+            .then(data => setBooks(data))
+    }, [])
+
+    console.log(books)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,12 +39,21 @@ const ManageBook = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(formData);
+        const res = await fetch(`${baseurl}/admin/create_book`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
 
-        // এখানে পরে API call করতে পারবে
+        const data = await res.json();
+
+        toast.success(data.message)
 
         setIsModalOpen(false);
     };
@@ -46,6 +69,85 @@ const ManageBook = () => {
                 >
                     Add Book
                 </button>
+            </div>
+            {/* Book Table */}
+            <div className="overflow-x-auto bg-base-100 rounded-xl shadow">
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Book</th>
+                            <th>Author</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Copies</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {books.map((book, index) => (
+                            <tr key={book.id}>
+                                <td>{index + 1}</td>
+
+                                <td>
+                                    <div className="flex items-center gap-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle w-12 h-12 bg-base-200 flex items-center justify-center">
+                                                {book.cover_image ? (
+                                                    <img
+                                                        src={book.cover_image}
+                                                        alt={book.title}
+                                                    />
+                                                ) : (
+                                                    <span className="text-xs">
+                                                        No Image
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div className="font-bold">
+                                                {book.title}
+                                            </div>
+
+                                            <div className="text-sm opacity-60">
+                                                ID: {book.id}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>{book.author}</td>
+
+                                <td>
+                                    <span className="badge badge-outline">
+                                        {book.category}
+                                    </span>
+                                </td>
+
+                                <td>৳{book.price}</td>
+
+                                <td>
+                                    {book.available_copies} / {book.total_copies}
+                                </td>
+
+                                <td>
+                                    <div className="flex gap-2">
+                                        <button className="btn btn-sm btn-info">
+                                            Edit
+                                        </button>
+
+                                        <button className="btn btn-sm btn-error">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
 
             {/* Modal */}

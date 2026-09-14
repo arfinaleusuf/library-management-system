@@ -40,6 +40,9 @@ const Navbar = () => {
                         authUser ? <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn m-1">{authUser?.username}</div>
                             <ul tabIndex={-1} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                {
+                                    authUser?.role == "admin" && <li><Link to={"/admin/manage-book"}>Admin Profile</Link></li>
+                                }
                                 <li><Link to={'/user/profile'}>Profile</Link></li>
                                 <li><Link to={'change-password'}>Change Password</Link></li>
                                 <li><button onClick={logout}>Log Out</button></li>

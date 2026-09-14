@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { baseurl } from "../services/BaseUrl";
+import toast from "react-hot-toast";
 
 
 const SignUp = () => {
@@ -33,6 +34,7 @@ const SignUp = () => {
         })
 
         const data = await res.json();
+        toast(data?.message || data?.detail)
         console.log(data);
     };
 
