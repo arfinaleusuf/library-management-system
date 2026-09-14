@@ -9,6 +9,8 @@ import MyReserve from "../pages/MyReserve";
 import PrivateRoutes from "./PrivateRoutes";
 import UserProfile from "../pages/UserProfile";
 import ChangePassword from "../pages/ChangePassword";
+import AdminLayout from "../layout/AdminLayout";
+import ManageBook from "../pages/admin/ManageBook";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,17 @@ const router = createBrowserRouter([
         }
     ]
   },
+  {
+    path:"/admin",
+    element: <AdminLayout/>,
+    children:[
+      {
+        path: "manage-book",
+        element: <ManageBook/>
+      }
+    ]
+
+  }
 ]);
 
 export default router;
