@@ -37,7 +37,14 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     {
-                        authUser ? <button onClick={logout} className="btn">Log Out</button> : <Link to={"/login"} className="btn">Login</Link>
+                        authUser ? <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn m-1">{authUser?.username}</div>
+                            <ul tabIndex={-1} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                <li><Link to={'/user/profile'}>Profile</Link></li>
+                                <li><button>Change Password</button></li>
+                                <li><button onClick={logout}>Log Out</button></li>
+                            </ul>
+                        </div> : <Link to={"/login"} className="btn">Login</Link>
                     }
                 </div>
             </div>

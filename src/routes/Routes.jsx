@@ -7,6 +7,7 @@ import BrowesBooks from "../pages/BrowesBooks";
 import BookDetails from "../pages/BookDetails";
 import MyReserve from "../pages/MyReserve";
 import PrivateRoutes from "./PrivateRoutes";
+import UserProfile from "../pages/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         {
           path:'/reserve/my',
           element:<PrivateRoutes> <MyReserve/> </PrivateRoutes>
+        },
+        {
+          path:'/user/profile',
+          element:<UserProfile/>
         }
     ]
   },
