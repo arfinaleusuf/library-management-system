@@ -20,7 +20,7 @@ const ManageBook = () => {
         total_copies: 1
     });
 
-     const fetchBook = ()=> {
+    const fetchBook = () => {
         fetch(`${baseurl}/books/all`)
             .then(res => res.json())
             .then(data => setBooks(data))
@@ -30,8 +30,17 @@ const ManageBook = () => {
         fetchBook();
     }, [])
 
-    const deleteBook = async (id) =>{
-        const res = await fetch(`${baseurl}/admin/delete_book/${id}`)
+    const deleteBook = async (id) => {
+        const res = await fetch(`${baseurl}/admin/delete_book/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+
+        const data = await res.json()
+        toast.success(data.message)
+        fetchBook();
     }
 
     console.log(books)
@@ -148,7 +157,7 @@ const ManageBook = () => {
                                             Edit
                                         </Link>
 
-                                        <button onClick={()=>deleteBook(book.id)} className="btn btn-sm btn-error">
+                                        <button onClick={() => deleteBook(book.id)} className="btn btn-sm btn-error">
                                             Delete
                                         </button>
                                     </div>
