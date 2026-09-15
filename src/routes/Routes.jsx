@@ -13,61 +13,66 @@ import AdminLayout from "../layout/AdminLayout";
 import ManageBook from "../pages/admin/ManageBook";
 import EditBook from "../pages/admin/EditBook";
 import IssueBooks from "../pages/admin/IssueBooks";
+import MyIssues from "../pages/MyIssues";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    children:[
-        {
-            path: "/",
-            element: <Home/>
-        },
-        {
-            path: "/login",
-            element: <Login/>
-        },
-        {
-          path: "/signup",
-          element: <SignUp/>
-        },
-        {
-          path:"/books",
-          element: <BrowesBooks/>
-        },
-        {
-          path:"/books/:id",
-          element:<PrivateRoutes><BookDetails/></PrivateRoutes>
-        },
-        {
-          path:'/reserve/my',
-          element:<PrivateRoutes> <MyReserve/> </PrivateRoutes>
-        },
-        {
-          path:'/user/profile',
-          element:<PrivateRoutes> <UserProfile/> </PrivateRoutes>
-        },
-        {
-          path:'/change-password',
-          element:<PrivateRoutes><ChangePassword/></PrivateRoutes>
-        }
+    children: [
+      {
+        path: "/",
+        element: <Home />
+      },
+      {
+        path: "/login",
+        element: <Login />
+      },
+      {
+        path: "/signup",
+        element: <SignUp />
+      },
+      {
+        path: "/books",
+        element: <BrowesBooks />
+      },
+      {
+        path: "/books/:id",
+        element: <PrivateRoutes><BookDetails /></PrivateRoutes>
+      },
+      {
+        path: '/reserve/my',
+        element: <PrivateRoutes> <MyReserve /> </PrivateRoutes>
+      },
+      {
+        path: '/user/profile',
+        element: <PrivateRoutes> <UserProfile /> </PrivateRoutes>
+      },
+      {
+        path: '/change-password',
+        element: <PrivateRoutes><ChangePassword /></PrivateRoutes>
+      },
+      {
+        path: "/issues/my",
+        element: <PrivateRoutes><MyIssues /></PrivateRoutes>
+      }
     ]
   },
   {
-    path:"/admin",
-    element: <AdminLayout/>,
-    children:[
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
       {
         path: "manage-book",
-        element: <ManageBook/>
+        element: <ManageBook />
       },
       {
         path: "edit/book/:id",
-        element:<EditBook/>
+        element: <EditBook />
       },
       {
-        path:"issue-book",
-        element: <IssueBooks/>
+        path: "issue-book",
+        element: <IssueBooks />
       }
     ]
 

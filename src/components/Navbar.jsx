@@ -22,6 +22,9 @@ const Navbar = () => {
                             {
                                 authUser && <li><Link to={'/reserve/my'}>My Reserve</Link></li>
                             }
+                            {
+                                authUser && <li><Link to={'/issues/my'}>My Issues</Link></li>
+                            }
                         </ul>
                     </div>
                     <a className="btn btn-ghost text-xl">daisyUI</a>
@@ -32,6 +35,9 @@ const Navbar = () => {
                         <li><Link to={'/books'}>Browse Books</Link></li>
                         {
                             authUser && <li><Link to={'/reserve/my'}>My Reserve</Link></li>
+                        }
+                        {
+                            authUser && <li><Link to={'/issues/my'}>My Issues</Link></li>
                         }
                     </ul>
                 </div>
