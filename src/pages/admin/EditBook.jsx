@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { baseurl } from "../../services/BaseUrl";
 import { AuthContext } from "../../context/AuthProvider";
+import toast from "react-hot-toast";
 
 const EditBook = () => {
     const { id } = useParams();
@@ -43,11 +44,35 @@ const EditBook = () => {
         }
     }, [bookDetails]);
 
+    const handleUpdate = async () => {
+        const formData = {
+            title,
+            author,
+            category,
+            description,
+            price,
+            total_copies: totalCopies,
+            available_copies: availableCopies
+        }
+
+        const res = await fetch(`${baseurl}/admin/update_book/${id}`,{
+            method: "PUT",
+            headers:{
+                Authorization : `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+
+        const data = await res.json()
+        toast.success(data.message)
+    }
+
     return (
         <div className="max-w-2xl mx-auto p-6">
             <h2 className="text-3xl font-bold mb-6">Edit Book</h2>
 
-            <form className="space-y-4">
+            <div className="space-y-4">
 
                 {/* Title */}
                 <div>
@@ -132,11 +157,11 @@ const EditBook = () => {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary w-full">
+                <button onClick={handleUpdate} className="btn btn-primary w-full">
                     Update Book
                 </button>
 
-            </form>
+            </div>
         </div>
     );
 };
