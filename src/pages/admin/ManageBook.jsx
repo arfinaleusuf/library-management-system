@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { baseurl } from "../../services/BaseUrl";
 import { AuthContext } from "../../context/AuthProvider";
 import toast from "react-hot-toast";
+import { Link } from "react-router";
 
 
 const ManageBook = () => {
@@ -135,9 +136,9 @@ const ManageBook = () => {
 
                                 <td>
                                     <div className="flex gap-2">
-                                        <button className="btn btn-sm btn-info">
+                                        <Link to={`/admin/edit/book/${book.id}`} className="btn btn-sm btn-info">
                                             Edit
-                                        </button>
+                                        </Link>
 
                                         <button className="btn btn-sm btn-error">
                                             Delete

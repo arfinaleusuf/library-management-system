@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 import { baseurl } from "../services/BaseUrl";
 import { AuthContext } from "../context/AuthProvider";
 import toast from "react-hot-toast";

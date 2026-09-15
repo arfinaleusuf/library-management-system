@@ -11,6 +11,7 @@ import UserProfile from "../pages/UserProfile";
 import ChangePassword from "../pages/ChangePassword";
 import AdminLayout from "../layout/AdminLayout";
 import ManageBook from "../pages/admin/ManageBook";
+import EditBook from "../pages/admin/EditBook";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "manage-book",
         element: <ManageBook/>
+      },
+      {
+        path: "edit/book/:id",
+        element:<EditBook/>
       }
     ]
 
