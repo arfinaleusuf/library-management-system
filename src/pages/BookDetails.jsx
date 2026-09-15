@@ -9,16 +9,16 @@ const BookDetails = () => {
     const [bookDetails, setBookDetails] = useState(null)
     const { accessToken } = useContext(AuthContext)
 
-    const handleReserve = async ()=> {
-        const res = await fetch(`${baseurl}/reserve/${id}`,{
+    const handleReserve = async () => {
+        const res = await fetch(`${baseurl}/reserve/${id}`, {
             method: "POST",
             headers: {
-                Authorization : `Bearer ${accessToken}`
+                Authorization: `Bearer ${accessToken}`
             }
         })
 
         const data = await res.json();
-        if(data){
+        if (data) {
             toast.success(data.message)
         }
     }
@@ -127,11 +127,19 @@ const BookDetails = () => {
                             </div>
                         </div>
 
-                        <div className="text-sm text-base-content/60 mb-6">
-                            Total Copies:{" "}
-                            <span className="font-semibold text-base-content">
-                                {bookDetails?.total_copies}
-                            </span>
+                        <div className="flex justify-between">
+                            <div className="text-sm text-base-content/60 mb-6">
+                                Book ID:{" "}
+                                <span className="font-semibold text-base-content">
+                                    {bookDetails?.id}
+                                </span>
+                            </div>
+                            <div className="text-sm text-base-content/60 mb-6">
+                                Total Copies:{" "}
+                                <span className="font-semibold text-base-content">
+                                    {bookDetails?.total_copies}
+                                </span>
+                            </div>
                         </div>
 
                         {/* Reserve Button */}
