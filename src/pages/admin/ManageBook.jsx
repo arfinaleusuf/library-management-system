@@ -20,11 +20,19 @@ const ManageBook = () => {
         total_copies: 1
     });
 
-    useEffect(() => {
+     const fetchBook = ()=> {
         fetch(`${baseurl}/books/all`)
             .then(res => res.json())
             .then(data => setBooks(data))
+    }
+
+    useEffect(() => {
+        fetchBook();
     }, [])
+
+    const deleteBook = async (id) =>{
+        const res = await fetch(`${baseurl}/admin/delete_book/${id}`)
+    }
 
     console.log(books)
 
@@ -140,7 +148,7 @@ const ManageBook = () => {
                                             Edit
                                         </Link>
 
-                                        <button className="btn btn-sm btn-error">
+                                        <button onClick={()=>deleteBook(book.id)} className="btn btn-sm btn-error">
                                             Delete
                                         </button>
                                     </div>
