@@ -20,6 +20,17 @@ const ManageIssue = () => {
         toast.success(data.message)
     }
 
+    const handlePayFine = async ()=>{
+        const res = await fetch(`${baseurl}/admin/fine/pay/${payReturnIssueId}`,{
+            method: "PUT",
+            headers:{
+                Authorization : `Bearer ${accessToken}`
+            }
+        })
+        const data = await res.json();
+        toast.success(data.message)
+    }
+
     return (
         <div className="min-h-screen bg-base-200 p-6">
             <h2 className="text-2xl font-bold mb-6">Manage Issues</h2>
@@ -69,7 +80,7 @@ const ManageIssue = () => {
                         />
 
                         <div className="card-actions justify-end mt-3">
-                            <button className="btn btn-secondary">
+                            <button onClick={handlePayFine} className="btn btn-secondary">
                                 Return Book By Pay
                             </button>
                         </div>
