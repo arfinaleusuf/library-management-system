@@ -14,6 +14,8 @@ import ManageBook from "../pages/admin/ManageBook";
 import EditBook from "../pages/admin/EditBook";
 import IssueBooks from "../pages/admin/IssueBooks";
 import MyIssues from "../pages/MyIssues";
+import ManageIssue from "../pages/admin/ManageIssue";
+import AdminProtected from "./AdminProtected";
 
 const router = createBrowserRouter([
   {
@@ -60,7 +62,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: <AdminProtected><AdminLayout /></AdminProtected>,
     children: [
       {
         path: "manage-book",
@@ -73,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "issue-book",
         element: <IssueBooks />
+      },
+      {
+        path: "manage-issue",
+        element: <ManageIssue />
       }
     ]
 

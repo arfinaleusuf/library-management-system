@@ -1,5 +1,7 @@
 import { Link, Outlet } from "react-router";
 import { MdOutlineManageHistory } from "react-icons/md";
+import { FaBoxTissue } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 
 
 const AdminLayout = () => {
@@ -25,7 +27,7 @@ const AdminLayout = () => {
                             {/* List item */}
                             <li>
                                 <Link to={'/admin/manage-book'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Book">
-                                    {/* Home icon */}
+                                    
                                     <MdOutlineManageHistory />
                                     <span className="is-drawer-close:hidden">Manage Book</span>
                                 </Link>
@@ -37,6 +39,18 @@ const AdminLayout = () => {
                                     {/* Settings icon */}
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
                                     <span className="is-drawer-close:hidden">Issue Books</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/admin/manage-issue'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Issue">
+                                    <FaBoxTissue />
+                                    <span className="is-drawer-close:hidden">Manage Issue</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={'/'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Home">
+                                    <FaHome />
+                                    <span className="is-drawer-close:hidden">Public Home</span>
                                 </Link>
                             </li>
                         </ul>
