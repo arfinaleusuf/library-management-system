@@ -1,1 +1,1 @@
-export const baseurl = https://library-management-fast-api.onrender.com
+export const baseurl = "https://library-management-fast-api.onrender.com"
